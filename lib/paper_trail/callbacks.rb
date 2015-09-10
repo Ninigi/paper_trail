@@ -1,5 +1,3 @@
- require 'active_support/concern'
-
 module PaperTrail
   module Callbacks
     def setup_callbacks_from_options(options_on, options = {})

@@ -62,7 +62,7 @@ module PaperTrail
       def setup_model_for_paper_trail(options = {})
         # Lazily include the instance methods so we don't clutter up
         # any more ActiveRecord models than we have to.
-        send :include, PaperTrail::Model::InstanceMethods
+        send :include, InstanceMethods
 
         class_attribute :version_association_name
         self.version_association_name = options[:version] || :version

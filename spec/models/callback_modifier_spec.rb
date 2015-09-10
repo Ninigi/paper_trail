@@ -3,14 +3,8 @@ require 'support/callback_modifier'
 
 describe CallbackModifier, :type => :model do
   with_versioning do
-    describe 'callback-methods' do
-      describe 'record_destroy', :versioning => true do
-        it 'should create a version' do
-          modifier = UpdateModifier.create!(:some_content => Faker::Lorem.sentence)
-          modifier.update_attributes! :some_content => 'modified'
-          expect(modifier.versions.last.event).to eq 'update'
-        end
-
+    describe 'callback-methods', :versioning => true do
+      describe 'paper_trail_destroy' do
         context 'when :before' do
           it 'should create the version before destroy' do
             modifier = BeforeDestroyModifier.create!(:some_content => Faker::Lorem.sentence)
@@ -36,7 +30,7 @@ describe CallbackModifier, :type => :model do
         end
       end
 
-      describe 'record_update' do
+      describe 'paper_trail_update' do
         it 'should create a version' do
           modifier = UpdateModifier.create!(:some_content => Faker::Lorem.sentence)
           modifier.update_attributes! :some_content => 'modified'
@@ -44,7 +38,7 @@ describe CallbackModifier, :type => :model do
         end
       end
 
-      describe 'record_update' do
+      describe 'paper_trail_create' do
         it 'should create a version' do
           modifier = CreateModifier.create!(:some_content => Faker::Lorem.sentence)
           expect(modifier.versions.last.event).to eq 'create'
@@ -74,6 +68,7 @@ describe CallbackModifier, :type => :model do
         it 'does only track the corresponding event' do
           modifier = CreateModifier.create!(:some_content => Faker::Lorem.sentence)
           modifier.update_attributes!(:some_content => 'modified')
+          modifier.test_destroy
           expect(modifier.versions.last.event).to eq 'create'
         end
       end

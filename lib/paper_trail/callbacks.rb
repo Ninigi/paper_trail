@@ -20,7 +20,7 @@ module PaperTrail
         fail ArgumentError, 'recording order can only be "after" or "before"'
       end
 
-      send "#{recording_order}_destroy",
+      send "paper_trail_#{recording_order}_destroy",
            :record_destroy,
            :if => :save_version?
     end

@@ -10,7 +10,7 @@ module PaperTrail
 
     # Record version before or after "destroy" event
     def paper_trail_destroy(options = {})
-      setup_model_if_necessary
+      setup_model_if_necessary options
       recording_order = options[:recording_order] || 'after'
 
       unless %(after before).include?(recording_order.to_s)
@@ -36,7 +36,7 @@ module PaperTrail
 
     # Record version after "update" event
     def paper_trail_update(options = {})
-      setup_model_if_necessary
+      setup_model_if_necessary options
       before_save  :reset_timestamp_attrs_for_update_if_needed!,
                    :on => :update
       after_update :record_update,
@@ -46,14 +46,14 @@ module PaperTrail
 
     # Record version after "create" event
     def paper_trail_create(options = {})
-      setup_model_if_necessary
+      setup_model_if_necessary options
       after_create :record_create,
                    :if => :save_version?
     end
 
     private
 
-      def setup_model_if_necessary
+      def setup_model_if_necessary(options)
         return true if model_set_up?
 
         setup_model_for_paper_trail options

@@ -48,15 +48,17 @@ module PaperTrail
       #   column if it exists. Default is true
       #
       def has_paper_trail(options = {})
-        setup_model_for_paper_trail(options)
-
+        # TODO: Add a deprecation warning / info to use callback methods instead
+        # of the :on option?
         options[:on] ||= [:create, :update, :destroy]
 
         # Wrap the :on option in an array if necessary. This allows a single
         # symbol to be passed in.
         options_on = Array(options[:on])
 
-        setup_callbacks_from_options options_on, options
+        setup_model_for_paper_trail(options)
+
+        setup_callbacks_from_options options_on
       end
 
       def setup_model_for_paper_trail(options = {})
@@ -75,7 +77,7 @@ module PaperTrail
 
         class_attribute :paper_trail_options
         self.paper_trail_options = options.dup
-
+p paper_trail_options
         [:ignore, :skip, :only].each do |k|
           paper_trail_options[k] =
             [paper_trail_options[k]].flatten.compact.map { |attr| attr.is_a?(Hash) ? attr.stringify_keys : attr.to_s }

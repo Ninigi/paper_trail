@@ -14,15 +14,16 @@ class NoArgDestroyModifier < CallbackModifier
 end
 
 class UpdateModifier < CallbackModifier
-  has_paper_trail
   paper_trail_update
 end
 
 class CreateModifier < CallbackModifier
-  has_paper_trail
   paper_trail_create
 end
 
 class DefaultModifier < CallbackModifier
+  # There seems to be a problem with inheritance:
+  # has_paper_trail has to be set up again if no callback-methods are used in
+  # the sub class, even though it has been set-up in the super class.
   has_paper_trail
 end

@@ -1,4 +1,6 @@
 class CallbackModifier < ActiveRecord::Base
+  has_paper_trail
+
   def test_destroy
     transaction do
       run_callbacks(:destroy) do

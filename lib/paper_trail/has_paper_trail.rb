@@ -56,9 +56,12 @@ module PaperTrail
         # symbol to be passed in.
         options_on = Array(options[:on])
 
-        setup_model_for_paper_trail(options)
+        class_attribute :paper_trail_options
+        self.paper_trail_options = options.dup
 
         setup_callbacks_from_options options_on
+
+        setup_model_for_paper_trail(options)
       end
 
       def setup_model_for_paper_trail(options = {})
@@ -75,9 +78,6 @@ module PaperTrail
         class_attribute :version_class_name
         self.version_class_name = options[:class_name] || 'PaperTrail::Version'
 
-        class_attribute :paper_trail_options
-        self.paper_trail_options = options.dup
-p paper_trail_options
         [:ignore, :skip, :only].each do |k|
           paper_trail_options[k] =
             [paper_trail_options[k]].flatten.compact.map { |attr| attr.is_a?(Hash) ? attr.stringify_keys : attr.to_s }

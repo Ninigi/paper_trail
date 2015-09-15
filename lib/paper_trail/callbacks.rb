@@ -1,10 +1,15 @@
 module PaperTrail
   module Callbacks
+    # The cleanup_* methods are only used to provide backward-compatibility
+    # They should be removed as soon as the "traditional" way of using
+    # PaperTrail `has_papertrail :on => [...]` with or without the :on option
+    # and not setting the paper_trail_* methods is no longer supported.
     def setup_callbacks_from_options(options_on = [])
       options_on.each do |option|
-        p "paper_trail_#{option}"
         send "paper_trail_#{option}"
       end
+
+      self.paper_trail_options[:on] = options_on
     end
 
     # Record version before or after "destroy" event
@@ -50,6 +55,7 @@ module PaperTrail
         on_options.each do |on_option|
           send "cleanup_#{on_option}_callbacks"
         end
+        p on_options, 'opts' if self.to_s == "CreateModifier"
       end
 
       def cleanup_create_callbacks

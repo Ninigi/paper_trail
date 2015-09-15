@@ -51,11 +51,10 @@ module PaperTrail
       # PaperTrail `has_papertrail :on => [...]` with or without the :on option
       # and not setting the paper_trail_* methods is no longer supported.
       def cleanup_callback_chain
-        on_options = paper_trail_options.delete(:on) || []
+        on_options = paper_trail_options.try(:delete, :on) || []
         on_options.each do |on_option|
           send "cleanup_#{on_option}_callbacks"
         end
-        p on_options, 'opts' if self.to_s == "CreateModifier"
       end
 
       def cleanup_create_callbacks

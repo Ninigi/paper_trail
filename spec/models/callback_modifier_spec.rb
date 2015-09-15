@@ -65,11 +65,10 @@ describe CallbackModifier, :type => :model do
       end
 
       context 'when only one callback-method' do
-        it 'does only track the corresponding event', :focus do
+        it 'does only track the corresponding event' do
           modifier = CreateModifier.create!(:some_content => Faker::Lorem.sentence)
           modifier.update_attributes!(:some_content => 'modified')
           modifier.test_destroy
-# p CreateModifier._save_callbacks
           expect(modifier.versions.collect(&:event)).to eq ['create']
         end
       end

@@ -22,8 +22,7 @@ class CreateModifier < CallbackModifier
 end
 
 class DefaultModifier < CallbackModifier
-  # There seems to be a problem with inheritance:
-  # has_paper_trail has to be set up again if no callback-methods are used in
-  # the sub class, even though it has been set-up in the super class.
+  # Because of the way I set up the destroy method for testing
+  # has_paper_trail has to be initialized in this model seperately
   has_paper_trail
 end

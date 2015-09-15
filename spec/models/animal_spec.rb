@@ -17,7 +17,7 @@ describe Animal, :type => :model do
     end
 
     context 'with callback-methods' do
-      context 'when only has_paper_trail set in super class', :focus => true do
+      context 'when only has_paper_trail set in super class' do
         let(:callback_cat) { Cat.create(:name => 'Markus') }
 
         it 'trails all events' do

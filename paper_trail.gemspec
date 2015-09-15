@@ -48,9 +48,10 @@ Gem::Specification.new do |s|
     # We would prefer to only constrain mysql2 to '~> 0.3',
     # but a rails bug (https://github.com/rails/rails/issues/21544)
     # requires us to constrain to '~> 0.3.20' for now.
-    s.add_development_dependency 'mysql2', '~> 0.3.20'
+    # s.add_development_dependency 'mysql2', '~> 0.3.20'
 
-    s.add_development_dependency 'pg', '~> 0.17'
+    # s.add_development_dependency 'pg', '~> 0.17'
+    s.add_development_dependency 'tzinfo-data'
   else
     s.add_development_dependency 'activerecord-jdbcsqlite3-adapter', '~> 1.3'
     s.add_development_dependency 'activerecord-jdbcpostgresql-adapter', '~> 1.3'

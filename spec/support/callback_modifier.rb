@@ -1,12 +1,15 @@
 class BeforeDestroyModifier < CallbackModifier
-  paper_trail_before_destroy
+  has_paper_trail
+  paper_trail_destroy :before
 end
 
 class AfterDestroyModifier < CallbackModifier
-  paper_trail_after_destroy
+  has_paper_trail
+  paper_trail_destroy :after
 end
 
 class NoArgDestroyModifier < CallbackModifier
+  has_paper_trail
   paper_trail_destroy
 end
 
@@ -19,5 +22,7 @@ class CreateModifier < CallbackModifier
 end
 
 class DefaultModifier < CallbackModifier
+  # Because of the way I set up the destroy method for testing
+  # has_paper_trail has to be initialized in this model seperately
   has_paper_trail
 end

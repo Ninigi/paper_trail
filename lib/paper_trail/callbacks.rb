@@ -6,14 +6,14 @@ module PaperTrail
     # and not setting the paper_trail_* methods is no longer supported.
     def setup_callbacks_from_options(options_on = [])
       options_on.each do |option|
-        send "paper_trail_#{option}"
+        send "paper_trail_on_#{option}"
       end
 
       paper_trail_options[:on] = options_on
     end
 
     # Record version before or after "destroy" event
-    def paper_trail_destroy(recording_order = 'after')
+    def paper_trail_on_destroy(recording_order = 'after')
       unless %(after before).include?(recording_order.to_s)
         fail ArgumentError, 'recording order can only be "after" or "before"'
       end
@@ -26,7 +26,7 @@ module PaperTrail
     end
 
     # Record version after "update" event
-    def paper_trail_update
+    def paper_trail_on_update
       cleanup_callback_chain
 
       before_save  :reset_timestamp_attrs_for_update_if_needed!,
@@ -37,7 +37,7 @@ module PaperTrail
     end
 
     # Record version after "create" event
-    def paper_trail_create
+    def paper_trail_on_create
       cleanup_callback_chain
 
       after_create :record_create,

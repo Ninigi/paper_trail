@@ -1,24 +1,24 @@
 class BeforeDestroyModifier < CallbackModifier
   has_paper_trail
-  paper_trail_destroy :before
+  paper_trail_on_destroy :before
 end
 
 class AfterDestroyModifier < CallbackModifier
   has_paper_trail
-  paper_trail_destroy :after
+  paper_trail_on_destroy :after
 end
 
 class NoArgDestroyModifier < CallbackModifier
   has_paper_trail
-  paper_trail_destroy
+  paper_trail_on_destroy
 end
 
 class UpdateModifier < CallbackModifier
-  paper_trail_update
+  paper_trail_on_update
 end
 
 class CreateModifier < CallbackModifier
-  paper_trail_create
+  paper_trail_on_create
 end
 
 class DefaultModifier < CallbackModifier

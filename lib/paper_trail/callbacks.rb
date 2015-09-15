@@ -9,7 +9,7 @@ module PaperTrail
         send "paper_trail_#{option}"
       end
 
-      self.paper_trail_options[:on] = options_on
+      paper_trail_options[:on] = options_on
     end
 
     # Record version before or after "destroy" event
